@@ -30,6 +30,7 @@ export TF_VAR_tenant_id="${AZ_TENANTID}"
 
 (cd cpman; terraform init)
 
+export TZ=Europe/Paris
 echo -n "Deploying cpman: "; date
 (cd cpman; terraform apply -auto-approve)
 echo -n "Deployment cpman with TF done: "; date
