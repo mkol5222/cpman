@@ -29,4 +29,4 @@ export TF_VAR_subscription_id="${AZ_SUBSCRIPTIONID}"
 export TF_VAR_tenant_id="${AZ_TENANTID}"
 
 
-(cd cpman; terraform destroy)
+(cd cpman; terraform destroy -auto-approve)
