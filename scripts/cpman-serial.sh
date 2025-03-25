@@ -13,4 +13,5 @@ RGNAME="cpman-tf-$ENVID"
 
 echo "Connecting to SERIAL console of CPMAN in RG $RGNAME"
 
+az config set extension.dynamic_install_allow_preview=true
 az serial-console connect --resource-group $RGNAME --name cpman
