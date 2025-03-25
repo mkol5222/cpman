@@ -28,9 +28,12 @@ export TF_VAR_client_secret="${AZ_PASSWORD}"
 export TF_VAR_subscription_id="${AZ_SUBSCRIPTIONID}"
 export TF_VAR_tenant_id="${AZ_TENANTID}"
 
+export TZ=Europe/Paris
+
+echo -n "Deploying cpman (TF init): "; date
 (cd cpman; terraform init)
 
-export TZ=Europe/Paris
+
 echo -n "Deploying cpman: "; date
 (cd cpman; terraform apply -auto-approve)
 echo -n "Deployment cpman with TF done: "; date
