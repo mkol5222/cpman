@@ -14,5 +14,6 @@ serial: cpman-serial
 
 check-cpman:
 	./scripts/cpman-check.sh
+cpman-check: check-cpman
 
 	

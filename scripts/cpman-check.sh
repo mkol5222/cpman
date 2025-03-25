@@ -63,6 +63,7 @@ function check_mgmt_api {
     echo "DONE: Management server is READY"
 }
 
+echo -n "Started waiting for cpman: "; date
 echo -n "Checking Management API readiness"
 while true; do
     # returns "DONE" if ready
@@ -76,4 +77,5 @@ while true; do
 done
 echo
 echo "Management API is ready. Connect to ${CPMAN_IP}"
+echo -n "Done waiting for cpman: "; date
 echo
