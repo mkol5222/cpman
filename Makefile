@@ -6,7 +6,7 @@ login-sp:
 	./scripts/login-sp.sh
 
 login: login-sp
-cpman: cpman-up
+cpman: cpman-up check-cpman
 
 cpman-serial:
 	./scripts/cpman-serial.sh
