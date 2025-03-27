@@ -9,8 +9,9 @@ fi
 
 echo 
 # wait for one character
-K=$(read -n 1 -s -r -p "Are you sure you want to delete the SP and sp.json? (y/N)")
+read -n 1 -s -r -p "Are you sure you want to delete the SP and sp.json? (y/N)" K
 echo
+
 if [ "${K}" != "y" ]; then
   echo "Aborted."
   exit 1
@@ -18,11 +19,14 @@ fi
 
 AZ_APPID=$(jq -r .appId sp.json)
 echo "Deleting SP ${AZ_APPID}"
-az ad sp delete --id "${AZ_APPID}"
-echo "SP deleted."
+echo
+echo "Please note and run in Azure Shell (https://shell.azure.com) in bash session:"
+echo "   az ad sp delete --id ${AZ_APPID}"
+echo "   az ad sp list --show-mine -o table"
+echo
 echo
 
-echp "Deleting sp.json"
+echo "Deleting sp.json file"
 rm -f sp.json
 
 unset SP
