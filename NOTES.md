@@ -115,3 +115,22 @@ if [ $(az role assignment list --role Owner --scope "/subscriptions/${subscripti
 else
     echo "User is Owner of subscription"
 fi
+
+subscriptionId=$(az account show --query id -o tsv)
+echo "Subscription ID: $subscriptionId"
+
+envId=$(for i in {1..8}; do printf "%x" $((RANDOM % 16)); done)
+echo "Environment ID: $envId"
+spname=$(echo "sp-cpman-$envId")
+echo "Service Principal Name: $spname"
+NEWSP=$(az ad sp create-for-rbac --name $spname --role Owner --scopes /subscriptions/$subscriptionId -o json)
+echo "$NEWSP" | jq -r --arg E "$envId" --arg S "$subscriptionId" '. | .envId = $E | .subscriptionId = $S | .name = "sp-cpman-" + $E'
+
+az ad sp list --show-mine --output table
+
+# $sp = az ad sp create-for-rbac --name $spname --role Owner --scopes /subscriptions/$subscriptionId -o json | ConvertFrom-Json
+# $sp | Add-Member -MemberType NoteProperty -Name envId -Value $envId
+# $sp | Add-Member -MemberType NoteProperty -Name subscriptionId -Value $subscriptionId
+# $sp | Add-Member -MemberType NoteProperty -Name name -Value $spname
+# $sp | ConvertTo-Json | Out-File -FilePath sp.json
+# gc sp.json
