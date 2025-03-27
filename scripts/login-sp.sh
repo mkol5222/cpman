@@ -17,7 +17,7 @@ AZ_SUBSCRIPTIONID=$(jq -r .subscriptionId sp.json)
 # echo Logging out
 # az logout
 
-echo "Logging in with SP ${AZ_APPID} in tenant ${AZ_TENANTID}"
+echo -n "Logging in with SP ${AZ_APPID} in tenant ${AZ_TENANTID}: "; date
 
 
 az login --service-principal \
