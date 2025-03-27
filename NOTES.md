@@ -134,3 +134,8 @@ az ad sp list --show-mine --output table
 # $sp | Add-Member -MemberType NoteProperty -Name name -Value $spname
 # $sp | ConvertTo-Json | Out-File -FilePath sp.json
 # gc sp.json
+
+
+### azure shell re-login
+az logout
+az login --identity
