@@ -23,4 +23,6 @@ make sp: get-sp
 sp-down:
 	./scripts/sp-down.sh
 
+cleanup: cpman-down sp-down
+
 	
