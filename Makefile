@@ -20,4 +20,7 @@ get-sp:
 	./scripts/get-sp.sh
 make sp: get-sp
 
+sp-down:
+	./scripts/sp-down.sh
+
 	
