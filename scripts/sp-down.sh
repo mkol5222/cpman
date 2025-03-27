@@ -30,3 +30,9 @@ echo "Logging out."
 az logout
 
 echo "SP deleted and sp.json removed."
+
+echo
+echo "Your remaining SPs:"
+az ad sp list --show-mine -o table
+echo
+
