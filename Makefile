@@ -16,4 +16,8 @@ check-cpman:
 	./scripts/cpman-check.sh
 cpman-check: check-cpman
 
+get-sp:
+	./scripts/get-sp.sh
+make sp: get-sp
+
 	
