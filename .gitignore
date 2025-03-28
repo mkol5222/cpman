@@ -40,3 +40,4 @@ terraform.rc
 ########### OWN FILES ###########
 sp.json
 reader.json
+auth/.env

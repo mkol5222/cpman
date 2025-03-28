@@ -1,0 +1,46 @@
+
+
+###
+#
+# Demonstrate use of Azure AD (Entra ID) Credentials to access Azure APIs
+#
+#
+
+###
+#
+# Login: exchange tenant_id+client_id+client_secret for access_token
+#
+# https://github.com/mkol5222/cgns-azure-workshop-2025/blob/61c41b3dfc9a91fa129e5c97be449985bab1ac7a/linux/peering.tf#L22
+#
+# az account get-access-token
+#
+# TOKEN=$(az account get-access-token | jq -r .accessToken)
+# echo $TOKEN 
+
+@client_id={{$dotenv TF_VAR_client_id}}
+@client_secret={{$dotenv TF_VAR_client_secret}}
+@tenant_id={{$dotenv TF_VAR_tenant_id}}
+@subscription_id={{$dotenv TF_VAR_subscription_id}}
+
+# @name login
+POST https://login.microsoftonline.com/{{tenant_id}}/oauth2/v2.0/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id={{client_id}}&client_secret={{client_secret}}&scope=https://management.azure.com/.default
+
+###
+#
+# Consume: use access_token to call Azure RM APIs
+#
+# https://github.com/mkol5222/cgns-azure-workshop-2025/blob/61c41b3dfc9a91fa129e5c97be449985bab1ac7a/linux/peering.tf#L44
+#
+# az group list --debug
+#
+# SUBSCRIPTION=$(az account show -o json | jq -r .id)
+# az rest --method get --url "https://management.azure.com/subscriptions/${SUBSCRIPTION}/resourcegroups?api-version=2022-09-01"
+#
+@token={{login.response.body.access_token}}
+
+GET https://management.azure.com/subscriptions/{{subscription_id}}/resourcegroups?api-version=2022-09-01 
+Authorization: Bearer {{token}}
+
